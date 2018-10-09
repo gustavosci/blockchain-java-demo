@@ -1,15 +1,9 @@
-import java.security.Security;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.google.gson.GsonBuilder;
 
 import domain.Block;
-import domain.Transaction;
-import domain.Wallet;
-import utils.StringUtil;
 
 public class BlockchainDemo {
 
@@ -17,29 +11,8 @@ public class BlockchainDemo {
 
     public static List<Block> blockchain = new ArrayList<Block>();
 
-    public static Wallet walletA;
-
-    public static Wallet walletB;
-
     public static void main(String[] args) {
 
-        Security.addProvider(new BouncyCastleProvider());
-
-        // Cria as wallets
-        walletA = new Wallet();
-        walletB = new Wallet();
-
-        System.out.println("Private and public keys Wallet A:");
-        System.out.println(StringUtil.getStringFromKey(walletA.getPrivateKey()));
-        System.out.println(StringUtil.getStringFromKey(walletA.getPublicKey()));
-
-        Transaction transaction = new Transaction(walletA.getPublicKey(), walletB.getPublicKey(), 5, null);
-        transaction.generateSignature(walletA.getPrivateKey());
-
-        System.out.println("Is signature verified");
-        System.out.println(transaction.verifiySignature());
-
-        /*
         blockchain.add(new Block("Hi im the first block", "0"));
         System.out.println("Trying to Mine block 1... ");
         blockchain.get(0).mineBlock(DIFFICULTY_MINE_BLOCK);
@@ -61,7 +34,6 @@ public class BlockchainDemo {
         System.out.println("\nAdulterando a blockchain...");
         blockchain.get(1).setData("New data");
         System.out.println("\nEsta blockchain é válida? " + isChainValid());
-        */
     }
 
     public static Boolean isChainValid() {
